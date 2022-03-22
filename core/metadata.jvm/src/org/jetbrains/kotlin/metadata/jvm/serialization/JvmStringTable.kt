@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.metadata.jvm.JvmProtoBuf
 import org.jetbrains.kotlin.metadata.jvm.JvmProtoBuf.StringTableTypes.Record
 import org.jetbrains.kotlin.metadata.jvm.deserialization.JvmNameResolver
 import org.jetbrains.kotlin.metadata.jvm.deserialization.JvmNameResolverBase
+import org.jetbrains.kotlin.metadata.jvm.deserialization.toExpandedRecordsList
 import org.jetbrains.kotlin.metadata.serialization.StringTable
 import java.io.OutputStream
 
@@ -105,15 +106,6 @@ open class JvmStringTable(nameResolver: JvmNameResolver? = null) : StringTable {
         JvmNameResolverBase(
             strings.toTypedArray(),
             localNames,
-            ArrayList<Record>().apply {
-                this.ensureCapacity(records.size)
-                for (recordBuilder in records) {
-                    val record = recordBuilder.build()
-                    repeat(record.range) {
-                        this.add(record)
-                    }
-                }
-                this.trimToSize()
-            }
+            records.map { it.build() }.toExpandedRecordsList()
         )
 }
