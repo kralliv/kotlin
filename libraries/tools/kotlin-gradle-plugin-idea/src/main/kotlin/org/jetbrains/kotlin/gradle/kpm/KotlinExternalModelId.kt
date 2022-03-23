@@ -8,14 +8,16 @@
 package org.jetbrains.kotlin.gradle.kpm
 
 import org.jetbrains.kotlin.gradle.kpm.idea.InternalKotlinGradlePluginApi
+import org.jetbrains.kotlin.tooling.core.ReifiedTypeSignature
+import org.jetbrains.kotlin.tooling.core.reifiedTypeSignatureOf
 import java.io.Serializable
 
 inline fun <reified T : Any> KotlinExternalModelId(disambiguationName: String? = null): KotlinExternalModelId<T> {
-    return KotlinExternalModelId(KotlinExternalModelType(), disambiguationName)
+    return KotlinExternalModelId(reifiedTypeSignatureOf(), disambiguationName)
 }
 
 class KotlinExternalModelId<T : Any> @PublishedApi internal constructor(
-    private val type: KotlinExternalModelType<T>,
+    private val type: ReifiedTypeSignature<T>,
     private val disambiguationName: String? = null
 ) : Serializable {
     override fun toString(): String {

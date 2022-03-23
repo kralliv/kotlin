@@ -12,6 +12,9 @@ kotlin.sourceSets.configureEach {
 
 dependencies {
     implementation(kotlinStdlib())
+    implementation(project(":kotlin-reflect-api"))
+    implementation(project(":kotlin-tooling-core"))
+
     testImplementation(gradleApi())
     testImplementation(gradleKotlinDsl())
     testImplementation(project(":kotlin-gradle-plugin"))

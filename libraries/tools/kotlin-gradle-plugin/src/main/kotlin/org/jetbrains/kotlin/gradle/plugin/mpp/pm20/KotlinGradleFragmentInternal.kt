@@ -23,6 +23,8 @@ import org.jetbrains.kotlin.gradle.plugin.sources.FragmentConsistencyChecks
 import org.jetbrains.kotlin.gradle.utils.addExtendsFromRelation
 import org.jetbrains.kotlin.gradle.utils.runProjectConfigurationHealthCheckWhenEvaluated
 import org.jetbrains.kotlin.project.model.KotlinModuleDependency
+import org.jetbrains.kotlin.tooling.core.MutableExtras
+import org.jetbrains.kotlin.tooling.core.mutableExtrasOf
 import javax.inject.Inject
 
 open class KotlinGradleFragmentInternal @Inject constructor(
@@ -37,12 +39,12 @@ open class KotlinGradleFragmentInternal @Inject constructor(
     final override val project: Project // overriding with final to avoid warnings
         get() = super.project
 
+    override val extras: MutableExtras = mutableExtrasOf()
+
     // TODO pull up to KotlinModuleFragment
     // FIXME apply to compilation
     // FIXME check for consistency
     override val languageSettings: LanguageSettingsBuilder = DefaultLanguageSettingsBuilder()
-
-    internal val external: KotlinMutableExternalModelContainer = KotlinExternalModelContainer.mutable()
 
     override fun refines(other: KotlinGradleFragment) {
         checkCanRefine(other)

@@ -36,6 +36,3 @@ fun KotlinGradleModule.createExternalJvmVariant(
 val KotlinGradleVariantInternal.compilationData
     get() = this.compilationData
 
-@ExternalVariantApi
-val KotlinGradleFragment.external: KotlinMutableExternalModelContainer
-    get() = (this as KotlinGradleFragmentInternal).external
