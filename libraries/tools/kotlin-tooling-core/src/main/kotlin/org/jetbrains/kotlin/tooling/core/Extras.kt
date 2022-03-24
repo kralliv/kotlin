@@ -5,6 +5,8 @@
 
 package org.jetbrains.kotlin.tooling.core
 
+import java.io.Serializable
+
 inline fun <reified T : Any> extrasKey(
     name: String? = null,
     capabilities: List<Extras.Key.Capability<T>> = emptyList()
@@ -12,12 +14,16 @@ inline fun <reified T : Any> extrasKey(
     return Extras.Key(Extras.Id(reifiedTypeSignatureOf(), name), capabilities)
 }
 
-fun emptyExtras(): Extras = EmptyExtras
+fun emptyExtras(): IterableExtras = EmptyExtras
 
 fun mutableExtrasOf(): MutableExtras = MutableExtrasImpl()
 
 fun mutableExtrasOf(vararg entries: Extras.Entry<*>): MutableExtras =
     MutableExtrasImpl(entries.toList())
+
+fun Iterable<Extras.Entry<*>>.toExtras(): IterableExtras = ImmutableExtrasImpl(this)
+
+fun Iterable<Extras.Entry<*>>.toMutableExtras(): MutableExtras = MutableExtrasImpl(this)
 
 infix fun <T : Any> Extras.Key<T>.value(value: T): Extras.Entry<T> = Extras.Entry(this, value)
 
@@ -25,7 +31,7 @@ interface Extras {
     class Id<T : Any> constructor(
         val type: ReifiedTypeSignature<T>,
         val name: String? = null,
-    ) {
+    ) : Serializable {
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (other !is Id<*>) return false
@@ -43,6 +49,10 @@ interface Extras {
         override fun toString(): String {
             if (name == null) return type.toString()
             return "$name: $type"
+        }
+
+        internal companion object {
+            private const val serialVersionUID = 0L
         }
     }
 
@@ -77,8 +87,6 @@ interface Extras {
             capabilities.forEach { capability -> if (capability is C) return capability }
             return null
         }
-
-
     }
 
     class Entry<T : Any>(val key: Key<T>, val value: T) {
@@ -105,10 +113,11 @@ interface Extras {
     operator fun <T : Any> contains(id: Id<T>): Boolean
 }
 
-
 interface IterableExtras : Extras, Iterable<Extras.Entry<*>> {
     val keys: Set<Extras.Key<*>>
     val entries: Set<Extras.Entry<*>>
+    fun isEmpty() = keys.isEmpty()
+    fun isNotEmpty() = !isEmpty()
     override fun iterator(): Iterator<Extras.Entry<*>> = entries.iterator()
 }
 
@@ -126,6 +135,14 @@ interface MutableExtras : IterableExtras {
      * @return The previous value or null if no previous value was set
      */
     operator fun <T : Any> set(key: Extras.Key<T>, value: T?): T?
+}
+
+interface HasExtras {
+    val extras: Extras
+}
+
+interface HasMutableExtras {
+    val extras: MutableExtras
 }
 
 /**
@@ -156,6 +173,9 @@ internal class MutableExtrasImpl private constructor(
             .map { (key, value) -> Extras.Entry(key as Extras.Key<Any>, value) }.toSet()
 
     @Synchronized
+    override fun isEmpty(): Boolean = extras.isEmpty()
+
+    @Synchronized
     override fun <T : Any> set(key: Extras.Key<T>, value: T?): T? {
         return if (value == null) extras.remove(key)?.let { it as T }
         else extras.put(key, value)?.let { it as T }
@@ -170,4 +190,24 @@ internal class MutableExtrasImpl private constructor(
     override fun <T : Any> contains(id: Extras.Id<T>): Boolean {
         return ids.contains(id)
     }
+}
+
+@Suppress("unchecked_cast")
+private class ImmutableExtrasImpl(
+    private val extras: Map<Extras.Key<*>, Any>
+) : IterableExtras {
+    constructor(extras: Iterable<Extras.Entry<*>>) : this(extras.associate { it.key to it.value })
+
+    override val ids: Set<Extras.Id<*>> = extras.map { it.key.id }.toSet()
+
+    override val keys: Set<Extras.Key<*>> = extras.keys
+
+    override val entries: Set<Extras.Entry<*>> =
+        extras.map { (key, value) -> Extras.Entry(key as Extras.Key<Any>, value) }.toSet()
+
+    override fun <T : Any> get(key: Extras.Key<T>): T? {
+        return extras[key]?.let { it as T }
+    }
+
+    override fun <T : Any> contains(id: Extras.Id<T>): Boolean = id in ids
 }

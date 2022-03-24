@@ -5,15 +5,21 @@
 
 package org.jetbrains.kotlin.gradle.kpm.idea
 
-import org.jetbrains.kotlin.tooling.core.Extras
-import org.jetbrains.kotlin.tooling.core.IterableExtras
-import org.jetbrains.kotlin.tooling.core.mutableExtrasOf
+import org.jetbrains.kotlin.tooling.core.*
 import java.io.Serializable
 
 sealed interface IdeaKotlinExtras : Extras, Serializable
 
+fun IdeaKotlinExtras(): IdeaKotlinExtras = EmptyIdeaKotlinExtras
+
+fun IdeaKotlinExtras(extras: IterableExtras): IdeaKotlinExtras {
+    if (extras.isEmpty()) return EmptyIdeaKotlinExtras
+    return IdeaKotlinExtrasImpl(extras.toExtras())
+}
+
+@WriteReplacedModel(replacedBy = IdeaKotlinExtrasSurrogate::class)
 @InternalKotlinGradlePluginApi
-class IdeaKotlinExtrasImpl(private val extras: IterableExtras) : IdeaKotlinExtras {
+private class IdeaKotlinExtrasImpl(private val extras: IterableExtras) : IdeaKotlinExtras {
     override val ids: Set<Extras.Id<*>> get() = extras.ids
     override fun <T : Any> get(key: Extras.Key<T>): T? = extras[key]
     override fun <T : Any> contains(id: Extras.Id<T>): Boolean = id in extras
@@ -24,6 +30,15 @@ class IdeaKotlinExtrasImpl(private val extras: IterableExtras) : IdeaKotlinExtra
     }
 }
 
+private object EmptyIdeaKotlinExtras : IdeaKotlinExtras {
+    override val ids: Set<Extras.Id<*>> = emptySet()
+    override fun <T : Any> get(key: Extras.Key<T>): T? = null
+    override fun <T : Any> contains(id: Extras.Id<T>): Boolean = false
+
+    @Suppress("unused")
+    private const val serialVersionUID = 0L
+}
+
 private class SerializedExtrasEntry(val id: Extras.Id<*>, val data: ByteArray)
 
 private class IdeaKotlinExtrasSurrogate(
@@ -32,8 +47,13 @@ private class IdeaKotlinExtrasSurrogate(
     private fun readResolve(): Any {
         return SerializedIdeaKotlinExtras(extras.toMutableMap())
     }
+
+    companion object {
+        private const val serialVersionUID = 0L
+    }
 }
 
+@WriteReplacedModel(replacedBy = IdeaKotlinExtrasSurrogate::class)
 @Suppress("unchecked_cast")
 private class SerializedIdeaKotlinExtras(
     private val serializedExtras: MutableMap<Extras.Id<*>, ByteArray>

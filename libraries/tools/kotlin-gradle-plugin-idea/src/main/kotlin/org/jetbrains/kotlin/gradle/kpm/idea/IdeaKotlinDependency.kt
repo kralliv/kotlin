@@ -10,15 +10,13 @@ package org.jetbrains.kotlin.gradle.kpm.idea
 import org.jetbrains.kotlin.gradle.kpm.idea.IdeaKotlinDependency.Companion.CLASSPATH_BINARY_TYPE
 import org.jetbrains.kotlin.gradle.kpm.idea.IdeaKotlinDependency.Companion.DOCUMENTATION_BINARY_TYPE
 import org.jetbrains.kotlin.gradle.kpm.idea.IdeaKotlinDependency.Companion.SOURCES_BINARY_TYPE
-import org.jetbrains.kotlin.tooling.core.Extras
-import org.jetbrains.kotlin.tooling.core.emptyExtras
 import java.io.File
 import java.io.Serializable
 import java.util.*
 
 sealed interface IdeaKotlinDependency : Serializable {
     val coordinates: IdeaKotlinDependencyCoordinates?
-    val extras: Extras
+    val extras: IdeaKotlinExtras
 
     companion object {
         const val CLASSPATH_BINARY_TYPE = "org.jetbrains.binary.type.classpath"
@@ -62,7 +60,7 @@ val IdeaKotlinResolvedBinaryDependency.isClasspathType get() = binaryType == CLA
 data class IdeaKotlinFragmentDependencyImpl(
     override val type: IdeaKotlinFragmentDependency.Type,
     override val coordinates: IdeaKotlinFragmentCoordinates,
-    override val extras: Extras = emptyExtras()
+    override val extras: IdeaKotlinExtras = IdeaKotlinExtras()
 ) : IdeaKotlinFragmentDependency {
 
     override fun toString(): String {
@@ -81,7 +79,7 @@ data class IdeaKotlinResolvedBinaryDependencyImpl(
     override val coordinates: IdeaKotlinBinaryCoordinates?,
     override val binaryType: String,
     override val binaryFile: File,
-    override val extras: Extras = emptyExtras()
+    override val extras: IdeaKotlinExtras = IdeaKotlinExtras()
 ) : IdeaKotlinResolvedBinaryDependency {
 
     override fun toString(): String {
@@ -98,7 +96,7 @@ data class IdeaKotlinResolvedBinaryDependencyImpl(
 data class IdeaKotlinUnresolvedBinaryDependencyImpl(
     override val cause: String?,
     override val coordinates: IdeaKotlinBinaryCoordinates?,
-    override val extras: Extras = emptyExtras()
+    override val extras: IdeaKotlinExtras = IdeaKotlinExtras()
 ) : IdeaKotlinUnresolvedBinaryDependency {
 
     @InternalKotlinGradlePluginApi

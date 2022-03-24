@@ -7,27 +7,27 @@
 
 package org.jetbrains.kotlin.gradle.android
 
-import org.jetbrains.kotlin.gradle.kpm.KotlinExternalModelKey
-import org.jetbrains.kotlin.gradle.kpm.KotlinExternalModelSerializer
-import org.jetbrains.kotlin.gradle.kpm.idea.IdeaKotlinFragment
+import org.jetbrains.kotlin.gradle.kpm.idea.IdeaKotlinExtraSerializer
 import org.jetbrains.kotlin.gradle.kpm.idea.InternalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.KotlinGradleFragment
+import org.jetbrains.kotlin.tooling.core.HasExtras
+import org.jetbrains.kotlin.tooling.core.HasMutableExtras
 import org.jetbrains.kotlin.tooling.core.extrasKey
 import java.io.File
 import java.io.Serializable
 
-val androidDslKey = KotlinExternalModelKey<AndroidDsl>(KotlinExternalModelSerializer.serializable())
+internal val androidDslKey = extrasKey<AndroidDsl>()
+    .withCapability(IdeaKotlinExtraSerializer.serializable())
 
-val androidExtrasKey = extrasKey<AndroidDsl>()
+val HasExtras.androidDsl: AndroidDsl? get() = extras[androidDslKey]
+
+internal var HasMutableExtras.androidDsl: AndroidDsl?
+    get() = extras[androidDslKey]
+    set(value) {
+        extras[androidDslKey] = value
+    }
 
 class AndroidDsl : Serializable {
     var compileSdk = 0
     var isMinifyEnabled: Boolean = false
     var androidManifest: File? = null
-}
-
-
-fun playground(fragment: KotlinGradleFragment) {
-    val previousDsl = fragment.extras.set(androidExtrasKey, AndroidDsl())
-    val dsl = fragment.extras[androidExtrasKey]
 }
