@@ -71,6 +71,7 @@ object CommonDeclarationCheckers : DeclarationCheckers() {
         FirOperatorModifierChecker,
         FirTailrecFunctionChecker,
         FirVersionOverloadsChecker,
+        FirExpressionAfterTypeReferenceSyntaxChecker.Function,
     )
 
     override val namedFunctionCheckers: Set<FirNamedFunctionChecker> = setOf(
@@ -101,6 +102,7 @@ object CommonDeclarationCheckers : DeclarationCheckers() {
         FirInlinePropertyChecker,
         FirUnnamedPropertyChecker,
         FirContextualPropertyWithBackingFieldChecker,
+        FirExpressionAfterTypeReferenceSyntaxChecker.Property,
     )
 
     override val backingFieldCheckers: Set<FirBackingFieldChecker> = setOf(
@@ -183,6 +185,7 @@ object CommonDeclarationCheckers : DeclarationCheckers() {
         FirPackageConflictsWithClassifierChecker,
         FirKotlinPackageChecker,
         PlatformClassMappedToKotlinImportsChecker,
+        FirTypeArgumentListLikeExpressionChecker,
     )
 
     override val scriptCheckers: Set<FirScriptChecker> = setOf(
@@ -227,6 +230,7 @@ object CommonDeclarationCheckers : DeclarationCheckers() {
         FirMissingDependencyClassForParameterChecker,
         FirDestructuringParameterChecker,
         FirExplicitEqualityBoundAnnotationChecker,
+        FirExpressionAfterTypeReferenceSyntaxChecker.ValueParameter,
     )
 
     override val enumEntryCheckers: Set<FirEnumEntryChecker> = setOf(

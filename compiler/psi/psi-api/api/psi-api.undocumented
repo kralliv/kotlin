@@ -195,6 +195,7 @@ org.jetbrains.kotlin.KtNodeTypes:THROW
 org.jetbrains.kotlin.KtNodeTypes:TRY
 org.jetbrains.kotlin.KtNodeTypes:TYPEALIAS
 org.jetbrains.kotlin.KtNodeTypes:TYPE_ARGUMENT_LIST
+org.jetbrains.kotlin.KtNodeTypes:TYPE_ARGUMENT_LIST_LIKE_EXPRESSION
 org.jetbrains.kotlin.KtNodeTypes:TYPE_CODE_FRAGMENT
 org.jetbrains.kotlin.KtNodeTypes:TYPE_CONSTRAINT
 org.jetbrains.kotlin.KtNodeTypes:TYPE_CONSTRAINT_LIST
@@ -366,6 +367,8 @@ org.jetbrains.kotlin.psi.KtLambdaExpression:constructor(CharSequence)
 org.jetbrains.kotlin.psi.KtLiteralStringTemplateEntry:constructor(ASTNode)
 org.jetbrains.kotlin.psi.KtLiteralStringTemplateEntry:constructor(KotlinPlaceHolderWithTextStub<KtLiteralStringTemplateEntry>)
 org.jetbrains.kotlin.psi.KtLoopExpression:constructor(ASTNode)
+org.jetbrains.kotlin.psi.KtMarkerType
+org.jetbrains.kotlin.psi.KtMarkerType.createPsi(ASTNode)
 org.jetbrains.kotlin.psi.KtModifierList:constructor(ASTNode)
 org.jetbrains.kotlin.psi.KtModifierList:constructor(KotlinModifierListStub, IElementType)
 org.jetbrains.kotlin.psi.KtModifierListOwnerStub:constructor(ASTNode)

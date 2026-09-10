@@ -29,6 +29,7 @@ import org.jetbrains.kotlin.lexer.KtKeywordToken
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.KtImplementationDetail
+import org.jetbrains.kotlin.psi.KtMarkerType
 import org.jetbrains.kotlin.psi.KtWhenEntry
 import org.jetbrains.kotlin.psi.psiUtil.getNonStrictParentOfType
 
@@ -58,6 +59,7 @@ open class KotlinCommonParserDefinition : ParserDefinition {
 
         is KDocElementType -> elementType.createPsi(astNode)
         KDocTokens.MARKDOWN_LINK -> KDocLink(astNode)
+        is KtMarkerType -> elementType.createPsi(astNode)
         else -> (elementType as KtNodeType).createPsi(astNode)
     }
 

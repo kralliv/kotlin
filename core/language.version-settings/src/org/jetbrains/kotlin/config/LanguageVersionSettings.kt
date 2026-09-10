@@ -577,6 +577,8 @@ enum class LanguageFeature(
     ConcurrentMapPurelyImplemented(sinceVersion = KOTLIN_2_6, enabledInProgressiveMode = true, "KTLC-416"),
     EnforceNamedArgumentsOnJavaAnnotationInAccessors(sinceVersion = KOTLIN_2_6, enabledInProgressiveMode = true, "KTLC-418"),
     JsIntegerDivisionCheck(sinceVersion = KOTLIN_2_6, enabledInProgressiveMode = true, issue = "KT-17719"),
+    AllowExpressionAfterTypeReferenceWithoutSpacing(sinceVersion = KOTLIN_2_6, "KT-35811"),
+    AllowTypeArgumentListLikeExpressions(sinceVersion = KOTLIN_2_6, "KT-8263"),
 
     // End of 2.* language features --------------------------------------------------
 

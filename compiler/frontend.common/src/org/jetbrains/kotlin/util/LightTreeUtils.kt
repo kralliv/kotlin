@@ -28,3 +28,10 @@ fun LighterASTNode.getPreviousSibling(tree: FlyweightCapableTreeStructure<Lighte
     val index = children.indexOf(this)
     return children.elementAtOrNull(index - 1)
 }
+
+fun LighterASTNode.getNextSibling(tree: FlyweightCapableTreeStructure<LighterASTNode>): LighterASTNode? {
+    val parent = tree.getParent(this) ?: return null
+    val children = parent.getChildren(tree)
+    val index = children.indexOf(this)
+    return children.elementAtOrNull(index + 1)
+}

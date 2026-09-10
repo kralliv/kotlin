@@ -5283,4 +5283,76 @@ public class PsiParsingTestGenerated extends AbstractPsiParsingTest {
       run("propertyInitializers.kt");
     }
   }
+
+  @Nested
+  @TestMetadata("compiler/psi/psi-impl/testData/psi/typeArgumentList")
+  @TestDataPath("$PROJECT_ROOT")
+  public class TypeArgumentList {
+    private void run(String fileName) {
+      runTest("compiler/psi/psi-impl/testData/psi/typeArgumentList/" + fileName);
+    }
+
+    @Test
+    public void testAllFilesPresentInTypeArgumentList() {
+      KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/psi/psi-impl/testData/psi/typeArgumentList"), Pattern.compile("^(.+)\\.(kt|kts)$"), null, true);
+    }
+
+    @Nested
+    @TestMetadata("compiler/psi/psi-impl/testData/psi/typeArgumentList/correctness")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Correctness {
+      private void run(String fileName) {
+        runTest("compiler/psi/psi-impl/testData/psi/typeArgumentList/correctness/" + fileName);
+      }
+
+      @Test
+      public void testAllFilesPresentInCorrectness() {
+        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/psi/psi-impl/testData/psi/typeArgumentList/correctness"), Pattern.compile("^(.+)\\.(kt|kts)$"), null, true);
+      }
+
+      @Test
+      @TestMetadata("binaryExpressionInFunctionCall.kt")
+      public void testBinaryExpressionInFunctionCall() {
+        run("binaryExpressionInFunctionCall.kt");
+      }
+
+      @Test
+      @TestMetadata("callExpressionAnyLHSAtomicExpression.kt")
+      public void testCallExpressionAnyLHSAtomicExpression() {
+        run("callExpressionAnyLHSAtomicExpression.kt");
+      }
+
+      @Test
+      @TestMetadata("callExpressionsInFunctionCall.kt")
+      public void testCallExpressionsInFunctionCall() {
+        run("callExpressionsInFunctionCall.kt");
+      }
+    }
+
+    @Nested
+    @TestMetadata("compiler/psi/psi-impl/testData/psi/typeArgumentList/recovery")
+    @TestDataPath("$PROJECT_ROOT")
+    public class Recovery {
+      private void run(String fileName) {
+        runTest("compiler/psi/psi-impl/testData/psi/typeArgumentList/recovery/" + fileName);
+      }
+
+      @Test
+      public void testAllFilesPresentInRecovery() {
+        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/psi/psi-impl/testData/psi/typeArgumentList/recovery"), Pattern.compile("^(.+)\\.(kt|kts)$"), null, true);
+      }
+
+      @Test
+      @TestMetadata("callExpressions.kt")
+      public void testCallExpressions() {
+        run("callExpressions.kt");
+      }
+
+      @Test
+      @TestMetadata("callExpressions_ERR.kt")
+      public void testCallExpressions_ERR() {
+        run("callExpressions_ERR.kt");
+      }
+    }
+  }
 }

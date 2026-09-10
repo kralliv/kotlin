@@ -153,6 +153,8 @@ public interface KtNodeTypes {
     @NotNull IElementType SAFE_ACCESS_EXPRESSION    = new KtNodeType("SAFE_ACCESS_EXPRESSION", KtSafeQualifiedExpression::new);
     @NotNull IElementType ERROR_SAFE_ACCESS_EXPRESSION    = new KtNodeType("ERROR_SAFE_ACCESS_EXPRESSION", KtErrorSafeQualifiedExpressionImpl::new);
 
+    @NotNull IElementType TYPE_ARGUMENT_LIST_LIKE_EXPRESSION = new KtMarkerType("TYPE_ARGUMENT_LIST_LIKE_EXPRESSION");
+
     @NotNull IElementType OBJECT_LITERAL            = KtStubBasedElementTypes.OBJECT_LITERAL;
 
     @NotNull IElementType WHEN                      = new KtNodeType("WHEN", KtWhenExpression::new);

@@ -19,7 +19,7 @@ import org.jetbrains.kotlin.lexer.KtTokens;
 import static org.jetbrains.kotlin.lexer.KtTokens.*;
 
 public class SemanticWhitespaceAwarePsiBuilderImpl extends PsiBuilderAdapter implements SemanticWhitespaceAwarePsiBuilder {
-    private final TokenSet complexTokens = TokenSet.create(SAFE_ACCESS, ERROR_SAFE_ACCESS, ELVIS, EXCLEXCL);
+    private final TokenSet complexTokens = TokenSet.create(SAFE_ACCESS, ERROR_SAFE_ACCESS, ELVIS, EXCLEXCL, GTEQ);
     private final Stack<Boolean> joinComplexTokens = new Stack<>();
 
     private final Stack<Boolean> newlinesEnabled = new Stack<>();
@@ -149,6 +149,10 @@ public class SemanticWhitespaceAwarePsiBuilderImpl extends PsiBuilderAdapter imp
             IElementType nextRawToken = rawLookup(rawLookupSteps);
             if (nextRawToken == DOT) return ERROR_SAFE_ACCESS;
         }
+        else if (rawTokenType == GT){
+            IElementType nextRawToken = rawLookup(rawLookupSteps);
+            if (nextRawToken == EQ) return GTEQ;
+        }
         return rawTokenType;
     }
 
@@ -175,10 +179,12 @@ public class SemanticWhitespaceAwarePsiBuilderImpl extends PsiBuilderAdapter imp
         if (!joinComplexTokens()) return super.getTokenText();
         IElementType tokenType = getTokenType();
         if (complexTokens.contains(tokenType)) {
-                if (tokenType == ELVIS) return "?:";
-                if (tokenType == SAFE_ACCESS) return "?.";
-                if (tokenType == ERROR_SAFE_ACCESS) return "|.";
-            }
+            if (tokenType == ELVIS) return "?:";
+            if (tokenType == SAFE_ACCESS) return "?.";
+            if (tokenType == ERROR_SAFE_ACCESS) return "|.";
+            if (tokenType == EXCLEXCL) return "!!";
+            if (tokenType == GTEQ) return ">=";
+        }
         return super.getTokenText();
     }
 
@@ -190,5 +196,11 @@ public class SemanticWhitespaceAwarePsiBuilderImpl extends PsiBuilderAdapter imp
             return super.lookAhead(steps + 1);
         }
         return getJoinedTokenType(super.lookAhead(steps), 2);
+    }
+
+    @Override
+    public boolean hasErrorsAfter(@NotNull Marker marker) {
+        assert delegateImpl != null : "PsiBuilderImpl not found";
+        return delegateImpl.hasErrorsAfter(marker);
     }
 }

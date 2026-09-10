@@ -52,7 +52,7 @@ KtUserType(144,150): 'Simple'
 KtNameReferenceExpression(144,150): 'Simple'
   NO_CANDIDATES
 
-KtNamedFunction(154,325): 'fun testWithSubject(s: Simple) = when(s) {'
+KtNamedFunction(154,273): 'fun testWithSubject(s: Simple) = when(s) {'
   NO_CANDIDATES
 
 KtParameterList(173,184): '(s: Simple)'
@@ -70,7 +70,7 @@ KtUserType(177,183): 'Simple'
 KtNameReferenceExpression(177,183): 'Simple'
   NO_CANDIDATES
 
-KtWhenExpression(187,325): 'when(s) {'
+KtWhenExpression(187,273): 'when(s) {'
   NO_CANDIDATES
 
 KtNameReferenceExpression(192,193): 's'
@@ -112,92 +112,29 @@ KtStringTemplateExpression(213,225): '"not a left"'
 KtLiteralStringTemplateEntry(214,224): 'not a left'
   NO_CANDIDATES
 
-KtWhenEntry(230,248): '<!USELESS_IS_CHECK'
+KtWhenEntry(230,256): '!is Right -> "not a right"'
   NO_CANDIDATES
 
-KtWhenConditionWithExpression(230,230): ''
+KtWhenConditionIsPattern(230,239): '!is Right'
   NO_CANDIDATES
 
-KtPrefixExpression(231,248): '!USELESS_IS_CHECK'
+KtTypeReference(234,239): 'Right'
   NO_CANDIDATES
 
-KtOperationReferenceExpression(231,232): '!'
+KtUserType(234,239): 'Right'
   NO_CANDIDATES
 
-KtNameReferenceExpression(232,248): 'USELESS_IS_CHECK'
+KtNameReferenceExpression(234,239): 'Right'
   NO_CANDIDATES
 
-KtWhenEntry(248,279): '!>!is Right<!> -> "not a right"'
+KtStringTemplateExpression(243,256): '"not a right"'
   NO_CANDIDATES
 
-KtWhenConditionWithExpression(248,262): '!>!is Right<!>'
+KtLiteralStringTemplateEntry(244,255): 'not a right'
   NO_CANDIDATES
 
-KtIsExpression(248,262): '!>!is Right<!>'
+KtWhenEntry(261,271): 'else -> ""'
   NO_CANDIDATES
 
-KtPrefixExpression(248,250): '!>'
-  NO_CANDIDATES
-
-KtOperationReferenceExpression(248,249): '!'
-  NO_CANDIDATES
-
-KtOperationReferenceExpression(250,253): '!is'
-  NO_CANDIDATES
-
-KtTypeReference(254,262): 'Right<!>'
-  NO_CANDIDATES
-
-KtUserType(254,262): 'Right<!>'
-  NO_CANDIDATES
-
-KtNameReferenceExpression(254,259): 'Right'
-  NO_CANDIDATES
-
-KtTypeArgumentList(259,262): '<!>'
-  NO_CANDIDATES
-
-KtTypeProjection(260,261): '!'
-  NO_CANDIDATES
-
-KtTypeReference(260,261): '!'
-  NO_CANDIDATES
-
-KtStringTemplateExpression(266,279): '"not a right"'
-  NO_CANDIDATES
-
-KtLiteralStringTemplateEntry(267,278): 'not a right'
-  NO_CANDIDATES
-
-KtWhenEntry(284,308): '<!REDUNDANT_ELSE_IN_WHEN'
-  NO_CANDIDATES
-
-KtWhenConditionWithExpression(284,284): ''
-  NO_CANDIDATES
-
-KtPrefixExpression(285,308): '!REDUNDANT_ELSE_IN_WHEN'
-  NO_CANDIDATES
-
-KtOperationReferenceExpression(285,286): '!'
-  NO_CANDIDATES
-
-KtNameReferenceExpression(286,308): 'REDUNDANT_ELSE_IN_WHEN'
-  NO_CANDIDATES
-
-KtWhenEntry(308,310): '!>'
-  NO_CANDIDATES
-
-KtWhenConditionWithExpression(308,310): '!>'
-  NO_CANDIDATES
-
-KtPrefixExpression(308,310): '!>'
-  NO_CANDIDATES
-
-KtOperationReferenceExpression(308,309): '!'
-  NO_CANDIDATES
-
-KtWhenEntry(310,323): 'else<!> -> ""'
-  NO_CANDIDATES
-
-KtStringTemplateExpression(321,323): '""'
+KtStringTemplateExpression(269,271): '""'
   NO_CANDIDATES

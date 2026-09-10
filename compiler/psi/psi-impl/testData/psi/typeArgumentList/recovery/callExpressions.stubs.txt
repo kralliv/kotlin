@@ -1,0 +1,13 @@
+FILE[kind=Facade[packageFqName=<root>, facadeFqName=CallExpressionsKt]]
+  facadeFqName: CallExpressionsKt
+  partSimpleName: "CallExpressionsKt"
+  PACKAGE_DIRECTIVE
+  IMPORT_LIST
+  FUNCTION[fqName=f1, hasBody=true, hasNoExpressionBody=true, hasTypeParameterListBeforeFunctionName=false, isExtension=false, isTopLevel=true, mayHaveContract=false, name=f1]
+    VALUE_PARAMETER_LIST
+  FUNCTION[fqName=f2, hasBody=true, hasNoExpressionBody=true, hasTypeParameterListBeforeFunctionName=false, isExtension=false, isTopLevel=true, mayHaveContract=false, name=f2]
+    VALUE_PARAMETER_LIST
+  FUNCTION[fqName=f3, hasBody=true, hasNoExpressionBody=true, hasTypeParameterListBeforeFunctionName=false, isExtension=false, isTopLevel=true, mayHaveContract=false, name=f3]
+    VALUE_PARAMETER_LIST
+  FUNCTION[fqName=f4, hasBody=true, hasNoExpressionBody=true, hasTypeParameterListBeforeFunctionName=false, isExtension=false, isTopLevel=true, mayHaveContract=false, name=f4]
+    VALUE_PARAMETER_LIST

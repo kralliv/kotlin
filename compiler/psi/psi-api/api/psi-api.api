@@ -114,6 +114,7 @@ public abstract interface class org/jetbrains/kotlin/KtNodeTypes {
 	public static final field TRY Lcom/intellij/psi/tree/IElementType;
 	public static final field TYPEALIAS Lcom/intellij/psi/tree/IElementType;
 	public static final field TYPE_ARGUMENT_LIST Lcom/intellij/psi/tree/IElementType;
+	public static final field TYPE_ARGUMENT_LIST_LIKE_EXPRESSION Lcom/intellij/psi/tree/IElementType;
 	public static final field TYPE_CODE_FRAGMENT Lcom/intellij/psi/tree/IFileElementType;
 	public static final field TYPE_CONSTRAINT Lcom/intellij/psi/tree/IElementType;
 	public static final field TYPE_CONSTRAINT_LIST Lcom/intellij/psi/tree/IElementType;
@@ -1830,6 +1831,11 @@ public abstract class org/jetbrains/kotlin/psi/KtLoopExpression : org/jetbrains/
 	public fun getBody ()Lorg/jetbrains/kotlin/psi/KtExpression;
 	public fun getLeftParenthesis ()Lcom/intellij/psi/PsiElement;
 	public fun getRightParenthesis ()Lcom/intellij/psi/PsiElement;
+}
+
+public final class org/jetbrains/kotlin/psi/KtMarkerType : com/intellij/psi/tree/IElementType {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun createPsi (Lcom/intellij/lang/ASTNode;)Lcom/intellij/psi/PsiElement;
 }
 
 public abstract class org/jetbrains/kotlin/psi/KtModifierList : org/jetbrains/kotlin/psi/KtElementImplStub, org/jetbrains/kotlin/psi/KtAnnotationsContainer {
